@@ -19,7 +19,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\..\IRemainder.cs" />
-  </ItemGroup>
 </Project>

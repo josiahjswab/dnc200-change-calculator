@@ -7,16 +7,24 @@ namespace dnc200_change_calculator
     {
         static void Main(string[] args)
         {
-            double cost, tender, dollars, quarters, dimes, nickles, pennies;
+            double cost, tender;
 
             Console.WriteLine("Total Cost?");
             cost = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Total Tender?");
             tender = Convert.ToDouble(Console.ReadLine());
 
-            double change = tender - cost;
-            Console.WriteLine($"C-T+Change{cost}-{tender}={change}");
             Console.Clear();
+
+            Console.WriteLine(GetChange(cost, tender));
+        }
+        
+        public static string GetChange(double _cost, double _tender)
+        {
+            double dollars, quarters, dimes, nickles, pennies;
+
+            double change = _tender - _cost;
+            Console.WriteLine(change);
 
             Dollars dollar = new Dollars(change);
             Quarters quarter = new Quarters(dollar.Remainder());
@@ -30,17 +38,23 @@ namespace dnc200_change_calculator
             nickles = nickle.Change();
             pennies = penny.Change();
 
-            Console.WriteLine("Change due breakdown:");
-            Console.WriteLine($"Dollars:{dollars}");
-            Console.WriteLine($"Quarters:{quarters}");
-            Console.WriteLine($"Dimes:{dimes}");
-            Console.WriteLine($"Nickles:{nickles}");
-            Console.WriteLine($"Pennies:{pennies}");
+            if(change == 0) {
+                return "No change is due";
+            };
+            if(change < 0) {
+                return "You are still owed";
+            };
+            if(change > 0) {
+                string[] changeArr = {"The total change due is", $"{dollars} dollars", $"{quarters} quarters", $"{dimes} dimes", $"{nickles} nickles", $"{pennies} pennies"};
 
-        }
-        public double GetChange(double cost, double tender)
-        {
-            return 
+                for(int i = 0; i < changeArr.Length; i++) 
+                {
+                    Console.WriteLine(changeArr[i]);
+                }
+                return changeArr[0];
+            };
+
+            return "Something";
         }
     }
 }
